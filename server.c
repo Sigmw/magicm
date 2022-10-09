@@ -26,15 +26,29 @@ char* user_path() {
 
 void handle_connection(int sockfd) {
     int connfd;
-    // char *buffer;
+    char buffer[1024]; 
+    char server_buffer[1024];
     printf(LOG_FORMAT("Magic server running!\n"));
     
-    for(;;) {
-        if((connfd = accept(sockfd, NULL, NULL)) == -1) {
+    while(1) {
+       if((connfd = accept(sockfd, NULL, NULL)) == -1) {
             perror(LOG_FORMAT_ERROR("Can't accept connection"));
             _exit(EXIT_FAILURE);
+        } 
+        printf(LOG_FORMAT("Connection received!\n"));
+        fflush(stdout);
+        bzero(buffer, sizeof(buffer));
+
+        read(connfd, buffer, sizeof(buffer));
+        // The strcmp here has a strange behavior, is returning 10 when the string match.
+        if(!(strcmp(buffer, "null"))) {
+            strcpy(server_buffer, LOG_FORMAT_SERVER("Hi, i am the Magic socket! I can provide anything about the user running the server. :)\n"));
+            write(connfd, server_buffer, strlen(server_buffer));
+        } else {
+            strcpy(server_buffer, LOG_FORMAT_SERVER("Unrecognized CLIENT FLAG.\n"));
+            write(connfd, server_buffer, strlen(server_buffer));
         }
-        printf(LOG_FORMAT("Connection received..."));
+        bzero(buffer, sizeof(buffer));
     }
 }
 
