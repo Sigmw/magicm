@@ -5,6 +5,6 @@
 #define LOG_FORMAT_ERROR(str) "\033[1m\e[1;35m" str
 
 int server();
-int client(char* socket_path);
+int client(char* socket_path, char* client_flag);
 
 #endif

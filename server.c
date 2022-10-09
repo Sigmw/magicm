@@ -64,6 +64,8 @@ int server() {
         perror(LOG_FORMAT_ERROR("Can't listen socket file descriptor"));
         _exit(EXIT_FAILURE);
     }
+
+    handle_connection(sockfd);
     return 0;
 }
 
