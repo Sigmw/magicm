@@ -27,7 +27,10 @@ int client(char* socket_path, char* client_flag) {
     printf(LOG_FORMAT("Connected in: %s...\n"), socket_path);
     fflush(stdout);
     
-    write(sockfd, "null", 4);
+    if(client_flag == NULL) {
+        client_flag = "default";
+    }
+    write(sockfd, client_flag, strlen(client_flag));
     read(sockfd, buffer, sizeof(buffer)); 
     printf("%s", buffer);
     

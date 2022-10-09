@@ -41,8 +41,11 @@ void handle_connection(int sockfd) {
 
         read(connfd, buffer, sizeof(buffer));
         // The strcmp here has a strange behavior, is returning 10 when the string match.
-        if(!(strcmp(buffer, "null"))) {
+        if(!(strcmp(buffer, "default"))) {
             strcpy(server_buffer, LOG_FORMAT_SERVER("Hi, i am the Magic socket! I can provide anything about the user running the server. :)\n"));
+            write(connfd, server_buffer, strlen(server_buffer));
+        } else if(!(strcmp(buffer, "user"))) {
+            sprintf(server_buffer, LOG_FORMAT_SERVER("%s\n"), user());
             write(connfd, server_buffer, strlen(server_buffer));
         } else {
             strcpy(server_buffer, LOG_FORMAT_SERVER("Unrecognized CLIENT FLAG.\n"));

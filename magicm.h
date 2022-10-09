@@ -7,5 +7,6 @@
 
 int server();
 int client(char* socket_path, char* client_flag);
+char* user();
 
 #endif
