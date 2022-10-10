@@ -11,9 +11,6 @@ int usage() {
 
 int main(int argc, char* argv[]) {
     switch(argc) {
-        case 1:
-            usage();
-            break;
        case 2:
             if(strcmp(argv[1], "server")) {
                 usage();
