@@ -4,6 +4,7 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <strings.h>
 
 char* user_path();
 void handle_connection(int sockfd);
@@ -12,13 +13,13 @@ char* user_path() {
     // This function should return /root/root.sock or /home/$USER/$USER.sock
     const char* home = getenv("HOME");
     const char* user = getenv("USER");
-    char* user_path = malloc(strlen(home) + strlen(user) + 6);
 
     if(home == NULL || user == NULL) {
         fprintf(stderr, LOG_FORMAT_ERROR("Could not create a path for UNIX_SOCKET: $USER or $HOME does not exists\n"));
         _exit(EXIT_FAILURE);
     }
 
+    char* user_path = malloc(strlen(home) + strlen(user) + 6);
     sprintf(user_path, "%s/%s.sock", home, user);
 
     return user_path;

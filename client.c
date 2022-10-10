@@ -12,7 +12,7 @@ int client(char* socket_path, char* client_flag) {
     char buffer[1024];
 
     sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
-    if((sockfd == -1)) {
+    if(sockfd == -1) {
         perror(LOG_FORMAT_ERROR("Can't create socket"));
         _exit(EXIT_FAILURE);
     }
