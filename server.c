@@ -14,8 +14,12 @@ char* user_path() {
     const char* home = getenv("HOME");
     const char* user = getenv("USER");
 
-    if(home == NULL || user == NULL) {
-        fprintf(stderr, LOG_FORMAT_ERROR("Could not create a path for UNIX_SOCKET: $USER or $HOME does not exists\n"));
+    if(user == NULL) {
+	    printf(LOG_FORMAT("$USER does not exists, set socket name as \"magicm\"\n"));
+	    user = "magicm";
+    }
+    if(home == NULL) {
+        fprintf(stderr, LOG_FORMAT_ERROR("Could not create a path for UNIX_SOCKET: $HOME variable does not exists\n"));
         _exit(EXIT_FAILURE);
     }
 
