@@ -22,9 +22,8 @@ char* user_path() {
         fprintf(stderr, LOG_FORMAT_ERROR("Could not create a path for UNIX_SOCKET: $HOME variable does not exists\n"));
         _exit(EXIT_FAILURE);
     }
-
-    char* user_path = malloc(strlen(home) + strlen(user) + 6);
-    sprintf(user_path, "%s/%s.sock", home, user);
+    char* user_path = malloc(strlen(user) + 10);
+    sprintf(user_path, "/tmp/%s.sock", user);
 
     return user_path;
 }
